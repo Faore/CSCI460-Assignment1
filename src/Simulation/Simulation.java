@@ -14,6 +14,7 @@ public class Simulation {
     public int lastJobAdded = -1;
     public int currentTick = 0;
     public boolean printResults = false;
+    public boolean printTable = false;
 
     public Simulation(int numberOfCores, SchedulingMethod method, ArrayList<Job> jobs) {
         this.numberOfCores = numberOfCores;
@@ -89,6 +90,14 @@ public class Simulation {
 
         results.stdDevTurnaroundTime = Math.sqrt(variance);
 
+        if(printTable) {
+            System.out.println(simulationPrefix() + " JobID:TurnaroundTime");
+            for ( Job job : jobs ) {
+                System.out.println(simulationPrefix() + " " + job.id + ":" + job.turnaroundTime);
+            }
+            System.out.println();
+        }
+
         if(printResults) {
             System.out.println(simulationPrefix() + " Average Turnaround Time: " + results.averageTurnaroundTime);
             System.out.println(simulationPrefix() + " Min Turnaround Time: " + results.minTurnaroundTime);
@@ -96,6 +105,8 @@ public class Simulation {
             System.out.println(simulationPrefix() + " Overall Turnaround Time: " + results.overallTurnaroundTime);
             System.out.println(simulationPrefix() + " StdDev Turnaround Time: " + results.stdDevTurnaroundTime + "\n");
         }
+
+
 
         return results;
     }
